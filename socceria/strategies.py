@@ -6,7 +6,7 @@ Created on Mon Jan 21 17:18:55 2019
 @author: 3700052
 """
 from soccersimulator import Ball,settings, Strategy, SoccerAction, Vector2D, SoccerTeam, Simulation, show_simu
-from tools  import SimpleStrategy,SuperState
+from .tools  import SimpleStrategy,SuperState
 from soccersimulator.settings  import GAME_WIDTH, GAME_HEIGHT,PLAYER_RADIUS,BALL_RADIUS
 
 class RandomStrategy(Strategy):
