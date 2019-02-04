@@ -10,7 +10,7 @@ def get_team ( nb_players ):
         team.add("Défenseur",SimpleStrategy(defenseur2,'Def'))
     return team
 
-if __name__ == ’ __main__ ’:
+if __name__ == '__main__ ':
     from soccersimulator import Simulation , show_simu
     
     # Check teams with 1 player and 2 players
