@@ -95,12 +95,11 @@ def gobetter (state):
     else :
         return SoccerAction (acceleration=state.ball-state.player)
     
-def defenseur (state):
-    if (state.ball.distance(state.goal)>75):
-        if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(shoot=state.goal-state.player)
-        else :
-            return SoccerAction (acceleration=state.ball-state.player)
+def defenseur2 (state):
+    if state.teamdef[1] : 
+        return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
+    else :
+        return gobetter(state)
 
 
 
@@ -111,14 +110,15 @@ team1 = SoccerTeam(name="Team 1")
 team2 = SoccerTeam(name="Team 2")
 
 team1.add("Attaquant",SimpleStrategy(gobetter,'Go - better'))
-team2.add("Défenseur",SimpleStrategy(defenseur,'Go - better'))
-team1.add("Défenseur",SimpleStrategy(defenseur,'Go - better'))
+team2.add("Attaquant",SimpleStrategy(gobetter,'Go - better'))
+team1.add("Défenseur",SimpleStrategy(defenseur2,'def'))
+team2.add("Défenseur",SimpleStrategy(defenseur2,'def'))
 
 # Add players
 #team1.add("Static", Strategy())   # Static strategy
 #team1.add("defenseur", defenseur())
 #team2.add("defenseur", defenseur())
-team2.add("Fonceur", Fonceur())
+#team2.add("Fonceur", Fonceur())
 #team1.add("Attanquant", Attaquant())
 # Create a match
 simu = Simulation(team1, team2)
