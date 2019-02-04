@@ -1,4 +1,4 @@
-from socceria import StrikeStrategy , RandomStrategy
+from strategies import defenseur2 , RandomStrategy , gobetter
 from soccersimulator import SoccerTeam
 
 def get_team ( nb_players ):
