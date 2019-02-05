@@ -120,8 +120,3 @@ team2.add("Défenseur",SimpleStrategy(defenseur2,'def'))
 #team2.add("defenseur", defenseur())
 #team2.add("Fonceur", Fonceur())
 #team1.add("Attanquant", Attaquant())
-# Create a match
-simu = Simulation(team1, team2)
-
-# Simulate and display the match
-show_simu(simu)
