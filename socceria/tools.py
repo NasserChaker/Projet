@@ -51,6 +51,23 @@ class SuperState (object):
         else : 
             (posdef, condition) = (3/4, self.ballameliorer.x < GAME_WIDTH*(2/3))
         return (posdef,condition)
+    
+    @property
+    def teamatt(self):
+        if self.id_team == 1 :
+            (posattx,posatty,a) = (self.player.x < GAME_WIDTH*(3/5), self.player.y < GAME_HEIGHT/2, GAME_WIDTH*(3/4))
+        else : 
+            (posattx,posatty,a) = (self.player.x > GAME_WIDTH*(2/5), self.player.y > GAME_HEIGHT/2, GAME_WIDTH*(1/4))
+        return (posattx,posatty,a)
+    
+    @property
+    def coequipier(self):
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) : 
+                return self.state.player_state(id_team, id_player).position
+    
+    
+
 
 class SimpleStrategy (Strategy):
     def __init__ (self, action, name):

@@ -1,4 +1,4 @@
-from socceria.strategies import defenseur2 , RandomStrategy , gobetter
+from socceria.strategies import defenseur2 , RandomStrategy , gobetter,attaquant2
 from soccersimulator import SoccerTeam
 from socceria.tools import SimpleStrategy,SuperState
 
@@ -7,7 +7,7 @@ def get_team ( nb_players ):
     if nb_players == 1:
         team.add("Attaquant",SimpleStrategy(gobetter,'Go - better'))
     if nb_players == 2:
-        team.add("Attaquant",SimpleStrategy(gobetter,'Go'))
+        team.add("Attaquant",SimpleStrategy(attaquant2,'att'))
         team.add("Défenseur",SimpleStrategy(defenseur2,'Def'))
     return team
 
