@@ -150,7 +150,7 @@ team1.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Att",SimpleStrategy(attaquant2,'Att'))
 
- """   # Create a match
+"""   # Create a match
 simu = Simulation ( team1 , team2 )
     
     # Simulate and display the match
