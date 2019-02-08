@@ -55,10 +55,10 @@ class SuperState (object):
     @property
     def teamatt(self):
         if self.id_team == 1 :
-            (posattx,posatty,a) = (self.player.x < GAME_WIDTH*(3/5), self.player.y < GAME_HEIGHT/2, GAME_WIDTH*(3/4))
+            (posattx,nextpos) = (self.player.x < GAME_WIDTH*(1/2), GAME_WIDTH*(6/10))
         else : 
-            (posattx,posatty,a) = (self.player.x > GAME_WIDTH*(2/5), self.player.y > GAME_HEIGHT/2, GAME_WIDTH*(1/4))
-        return (posattx,posatty,a)
+            (posattx,nextpos) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(4/10))
+        return (posattx,nextpos)
     
     @property
     def coequipier(self):

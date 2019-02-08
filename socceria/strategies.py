@@ -88,31 +88,20 @@ class Defenseur(Strategy):
                 return SoccerAction(Vector2D.create_random(-0.5 ,0.5),
                             Vector2D.create_random(-0.5 ,0.5))
 """                
-
+def gobetter(state) : 
+     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=state.goal-state.player)
+     else :
+        return SoccerAction (acceleration=state.ballameliorer-state.player)
+    
+    
                 
 def gobetterdef (state):
     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.coequipier-state.player)
     else :
-        return SoccerAction (acceleration=state.ball-state.player)
-    
-def gobetteratt (state):
-    if state.teamatt[0] :
-        if state.teamatt[1] :
-            return SoccerAction(state.ballameliorer-state.player, Vector2D(state.teamatt[2], 0)-state.player)
-        else : 
-            return SoccerAction(state.ballameliorer-state.player, Vector2D(state.teamatt[2], GAME_HEIGHT)-state.player)
-    else : 
-        if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(shoot=state.goal-state.player)
-        else :
-            return SoccerAction (acceleration=state.ball-state.player)
-        
-def gobetter(state) : 
-     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-        return SoccerAction(shoot=state.goal-state.player)
-     else :
-        return SoccerAction (acceleration=state.ball-state.player)
+        return SoccerAction (acceleration=state.ballameliorer-state.player)
+
     
 def defenseur2 (state):
     if state.teamdef[1] : 
@@ -121,34 +110,48 @@ def defenseur2 (state):
         return gobetterdef(state)
 
 
+    
+def gobetteratt (state):
+    if state.teamatt[0] :
+        if state.player.y < GAME_HEIGHT/2 :
+            if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+                return SoccerAction(shoot=Vector2D(state.teamatt[1], 0)-state.player)
+            else :
+                return SoccerAction (acceleration=state.ballameliorer-state.player)
+        else : 
+            if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+                return SoccerAction(shoot=Vector2D(state.teamatt[1], GAME_HEIGHT)-state.player)
+            else :
+                return SoccerAction (acceleration=state.ballameliorer-state.player)
+    else : 
+        if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(shoot=state.goal-state.player)
+        else :
+            return SoccerAction (acceleration=state.ballameliorer-state.player)
+        
 def attaquant2(state):
     if not state.teamdef[1] : 
         return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
     else :
-        return gobetter(state) 
+        return gobetteratt(state) 
 
 
 
 
-# Create teams
+    # Create teams
 team1 = SoccerTeam(name="Team 1")
 team2 = SoccerTeam(name="Team 2")
 
-#team1.add("Attaquant",SimpleStrategy(gobetter,'Go - better'))
-#team2.add("Attaquant",SimpleStrategy(gobetter,'Go - better'))
+    # Add players
+#team1.add("Go",SimpleStrategy(gobetter,'Go'))
+#team2.add("Go",SimpleStrategy(gobetter,'Go'))
 team1.add("Att",SimpleStrategy(attaquant2,'Att'))
 team1.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Att",SimpleStrategy(attaquant2,'Att'))
 
-# Add players
-#team1.add("Static", Strategy())   # Static strategy
-#team1.add("defenseur", defenseur())
-#team2.add("defenseur", defenseur())
-#team2.add("Fonceur", Fonceur())
-#team1.add("Attanquant", Attaquant())
-    # Create a match
-#simu = Simulation ( team1 , team2 )
+ """   # Create a match
+simu = Simulation ( team1 , team2 )
     
     # Simulate and display the match
-#show_simu ( simu )
+show_simu ( simu )"""
