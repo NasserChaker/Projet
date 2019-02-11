@@ -1,3 +1,7 @@
+from soccersimulator import SoccerTeam, Strategy, Simulation
+from soccersimulator import Vector2D, show_simu
+
+
 class GoalSearch (object):
     def __init__ (self, strategy, params, simu = None, trials =20, max_steps =1000000, max_round_step =40):
         self.strategy = strategy
@@ -9,10 +13,10 @@ class GoalSearch (object):
 
     def start (self, show = True):
         if not self.simu :
-            team1 = SoccerTeam ("Team␣1")
-            team2 = SoccerTeam ("Team␣2")
-            team1.add (self.strategy.name, self.strategy)
-            team2.add (Strategy().name, Strategy())
+            team1 = SoccerTeam("Team␣1")
+            team2 = SoccerTeam("Team␣2")
+            team1.add(self.strategy.name, self.strategy)
+            team2.add(Strategy().name, Strategy())
             self.simu = Simulation(team1, team2, max_steps = self.max_steps)
         self.simu.listeners += self
 
