@@ -1,6 +1,6 @@
 from socceria.strategies import defenseur2 , RandomStrategy , gobetter,attaquant2
 from soccersimulator import SoccerTeam
-from socceria.tools import SimpleStrategy,SuperState
+from socceria.tools import SimpleStrategy, SuperState, GoTestStrategy
 
 def get_team ( nb_players ):
     team = SoccerTeam ( name = " Nasser’s ␣ Team " )

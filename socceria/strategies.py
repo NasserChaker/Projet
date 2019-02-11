@@ -68,7 +68,7 @@ class Attaquant(Strategy):
                     
 class Defenseur(Strategy):
     def __init__(self):
-        Strategy.__init__(self, "Defenseur")
+        Strategy.__init__(self, "Defenseur")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ,                                                
 
     def compute_strategy(self, state, id_team, id_player):
         # id_team is 1 or 2
@@ -149,9 +149,10 @@ team1.add("Att",SimpleStrategy(attaquant2,'Att'))
 team1.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Att",SimpleStrategy(attaquant2,'Att'))
-
-"""   # Create a match
+"""
+ # Create a match
 simu = Simulation ( team1 , team2 )
     
     # Simulate and display the match
-show_simu ( simu )"""
+show_simu ( simu )
+"""

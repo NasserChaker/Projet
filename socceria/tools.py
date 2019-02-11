@@ -1,5 +1,5 @@
 from soccersimulator import Ball, settings, Strategy, SoccerAction, Vector2D, SoccerTeam, Simulation, show_simu
-from soccersimulator.settings  import GAME_WIDTH, GAME_HEIGHT
+from soccersimulator.settings  import GAME_WIDTH, GAME_HEIGHT, PLAYER_RADIUS,BALL_RADIUS
 import math
 
 
@@ -77,3 +77,40 @@ class SimpleStrategy (Strategy):
     def compute_strategy (self, state ,id_team ,id_player):
         s = SuperState (state, id_team, id_player)
         return self.action(s)
+
+    
+class Move (object):
+    def __init__ (self, superstate):
+        self.superstate = superstate
+
+    def move (self, acceleration = None):
+        return SoccerAction (acceleration = acceleration)
+
+    def to_ball (self):
+        return self.move (self.superstate.ball_dir())
+
+class Shoot(object):
+    def __init__ (self, superstate):
+        self.superstate = superstate
+    
+    def shoot (self, direction = None):
+        dist = self.superstate.player.distance(self.superstate.ball)
+        if dist < PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(shoot = direction)
+        else :
+            return SoccerAction()
+
+    def to_goal (self, strength = None):
+        return self.shoot(self.superstate.goal_dir)
+
+    
+class GoTestStrategy (Strategy):
+    def __init__ (self, strength=None ):
+        Strategy.__init__(self, "Go-getter")
+        self.strength = strength
+
+    def compute_strategy (self, state, id_team ,id_player):
+        s = SuperState (state, id_team, id_player)
+        move = Move(s)
+        shoot = Shoot(s)
+        return move.to_ball() + shoot.to_goal (self.strength)
