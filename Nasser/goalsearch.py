@@ -1,6 +1,8 @@
 from soccersimulator import SoccerTeam, Strategy, Simulation
 from soccersimulator import Vector2D, show_simu
 from sklearn.model_selection import ParameterGrid
+from soccersimulator.settings  import GAME_WIDTH, GAME_HEIGHT,PLAYER_RADIUS,BALL_RADIUS,maxPlayerShoot
+
 
 
 class GoalSearch (object):
@@ -37,9 +39,11 @@ class GoalSearch (object):
         self.res = dict() # Dictionary of results
 
     def begin_round (self, team1, team2, state):
-        ball = Vector2D.create_random(low=0 ,high=1)
-        ...
+        ball = Vector2D.create_random(low=0,high=1) 
+        ball.y = ball.y*GAME_HEIGHT
+        ball.x = ball.x*GAME_WIDTH*(3/5) + GAME_WIDTH*(3/5) 
         
+
         # Player and ball postion ( random )
         self.simu.state.states[(1,0)].position = ball.copy() # Player position
         self.simu.state.states[(1,0)].vitesse = Vector2D() # Player acceleration
@@ -59,7 +63,7 @@ class GoalSearch (object):
         self.cpt_trials += 1 # Increment number of trials
 
         print(self.cur_param, end = " ␣ ␣ ␣ ␣ ")
-        print("Crit:␣{}␣␣␣Cpt:␣{}".format(self.criterion, self.cpt_trials))
+        print("Crit: {}   Cpt: {}".format(self.criterion, self.cpt_trials))
 
         if self.cpt_trials >= self.trials :
             # Save the result

@@ -55,13 +55,13 @@ class SuperState (object):
     @property
     def teamatt(self):
         if self.id_team == 1 :
-            (posattx,nextpos) = (self.player.x < GAME_WIDTH*(1/2), GAME_WIDTH*(6/10))
+            (posattx,nextpos) = (self.player.x < GAME_WIDTH*(1/2), GAME_WIDTH*(3/5))
         else : 
-            (posattx,nextpos) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(4/10))
+            (posattx,nextpos) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(3/5))
         return (posattx,nextpos)
     
     @property
-    def coequipier(self):
+    def coequipier(self):   
         for (id_team, id_player) in self.state.players :
             if (id_team == self.id_team) and (id_player != self.id_player) : 
                 return self.state.player_state(id_team, id_player).position
@@ -84,10 +84,14 @@ class Move (object):
         self.superstate = superstate
 
     def move (self, acceleration = None):
-        return SoccerAction (acceleration = acceleration)
+        return SoccerAction(acceleration = acceleration)
+    
+    
 
+    
+    
     def to_ball (self):
-        return self.move (self.superstate.ball_dir())
+        return self.move(self.superstate.ball-self.superstate.player)
 
 class Shoot(object):
     def __init__ (self, superstate):
@@ -101,12 +105,12 @@ class Shoot(object):
             return SoccerAction()
 
     def to_goal (self, strength = None):
-        return self.shoot(self.superstate.goal_dir)
+        return self.shoot((self.superstate.goal-self.superstate.player)*strength)
 
     
 class GoTestStrategy (Strategy):
     def __init__ (self, strength=None ):
-        Strategy.__init__(self, "Go")
+        Strategy.__init__(self, "Nasser")
         self.strength = strength
 
     def compute_strategy (self, state, id_team ,id_player):

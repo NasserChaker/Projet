@@ -94,6 +94,8 @@ def gobetter(state) :
      else :
         return SoccerAction (acceleration=state.ballameliorer-state.player)
     
+
+    
     
                 
 def gobetterdef (state):
