@@ -106,7 +106,7 @@ class Shoot(object):
     
 class GoTestStrategy (Strategy):
     def __init__ (self, strength=None ):
-        Strategy.__init__(self, "Go-getter")
+        Strategy.__init__(self, "Go")
         self.strength = strength
 
     def compute_strategy (self, state, id_team ,id_player):

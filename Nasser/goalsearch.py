@@ -1,5 +1,6 @@
 from soccersimulator import SoccerTeam, Strategy, Simulation
 from soccersimulator import Vector2D, show_simu
+from sklearn.model_selection import ParameterGrid
 
 
 class GoalSearch (object):
@@ -29,7 +30,7 @@ class GoalSearch (object):
         self.last_step = 0 # Step of the last round
         self.criterion = 0 # Criterion to maximize ( here , number of goals )
         self.cpt_trials = 0 # Counter for trials
-        self.param_grid = iter(ParameterGrid (self.params)) # Iterator for the g
+        self.param_grid = iter(ParameterGrid(self.params)) # Iterator for the g
         self.cur_param = next(self.param_grid, None) # Current parameter
         if self.cur_param is None :
             raise ValueError('no␣parameter␣given.')
@@ -41,7 +42,7 @@ class GoalSearch (object):
         
         # Player and ball postion ( random )
         self.simu.state.states[(1,0)].position = ball.copy() # Player position
-        self.simu.state.states[(1,0)].vitesse = Vector2D() # Player accelerati
+        self.simu.state.states[(1,0)].vitesse = Vector2D() # Player acceleration
         self.simu.state.ball.position = ball.copy() # Ball position
         
         self.last_step = self.simu.step # Last step of the game

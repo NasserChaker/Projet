@@ -1,5 +1,5 @@
-from socceria.goalsearch import GoalSearch
-from socceria.tools import GoTestStrategy
+from Nasser.goalsearch import GoalSearch
+from Nasser.tools import GoTestStrategy
 
 
 expe = GoalSearch(strategy = GoTestStrategy(), params={'strength': [0.1, 1]})

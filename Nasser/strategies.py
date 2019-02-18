@@ -137,7 +137,7 @@ def attaquant2(state):
 
 
 
-
+"""
     # Create teams
 team1 = SoccerTeam(name="Team 1")
 team2 = SoccerTeam(name="Team 2")
@@ -149,8 +149,8 @@ team1.add("Att",SimpleStrategy(attaquant2,'Att'))
 team1.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Def",SimpleStrategy(defenseur2,'Def'))
 team2.add("Att",SimpleStrategy(attaquant2,'Att'))
-"""
- # Create a match
+
+
 simu = Simulation ( team1 , team2 )
     
     # Simulate and display the match
