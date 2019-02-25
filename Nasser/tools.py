@@ -33,7 +33,7 @@ class SuperState (object):
     
     @property
     def listeop(self):
-        return [self.state.player_state(id_team, id_player).position for ( id_team , id_player ) in self.state.players if id_team != self.id_team]
+        return [self.state.player_state(id_team, id_player).position for (id_team , id_player) in self.state.players if id_team != self.id_team]
     
     @property
     def near(self):
@@ -55,16 +55,23 @@ class SuperState (object):
     @property
     def teamatt(self):
         if self.id_team == 1 :
-            (posattx,nextpos) = (self.player.x < GAME_WIDTH*(1/2), GAME_WIDTH*(3/5))
+            (posattx,nextpos,defe) = (self.player.x < GAME_WIDTH*(1/2), GAME_WIDTH*(3/5),self.ballameliorer.x < GAME_WIDTH*(1/4))
         else : 
-            (posattx,nextpos) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(3/5))
-        return (posattx,nextpos)
+            (posattx,nextpos,defe) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(2/5),self.ballameliorer.x > GAME_WIDTH*(3/4))
+        return (posattx,nextpos,defe)
     
     @property
     def coequipier(self):   
         for (id_team, id_player) in self.state.players :
             if (id_team == self.id_team) and (id_player != self.id_player) : 
                 return self.state.player_state(id_team, id_player).position
+            
+    @property 
+    def oneatt(self): 
+        if self.id_team == 1 :
+            return (self.near.x < self.player.x)
+        else : 
+            return (self.near.x > self.player.x)
     
     
 

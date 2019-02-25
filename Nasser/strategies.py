@@ -89,13 +89,16 @@ class Defenseur(Strategy):
                             Vector2D.create_random(-0.5 ,0.5))
 """                
 def gobetter(state) : 
-     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+     if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.goal-state.player)
      else :
         return SoccerAction (acceleration=state.ballameliorer-state.player)
     
-
-    
+def gonull(state) : 
+     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=state.goal-state.player)
+     else :
+        return SoccerAction (acceleration=state.ball-state.player)
     
                 
 def gobetterdef (state):
@@ -111,8 +114,6 @@ def defenseur2 (state):
     else :
         return gobetterdef(state)
 
-
-    
 def gobetteratt (state):
     if state.teamatt[0] :
         if state.player.y < GAME_HEIGHT/2 :
@@ -131,12 +132,37 @@ def gobetteratt (state):
         else :
             return SoccerAction (acceleration=state.ballameliorer-state.player)
         
+        
+        
 def attaquant2(state):
-    if not state.teamdef[1] : 
+    if state.teamatt[2] : 
         return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
     else :
         return gobetteratt(state) 
+    
+    
+def one(state):
+    if state.oneatt : 
+         if (state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS) and (state.ball.x == GAME_WIDTH/2) and (state.balle.y == GAME_HEIGHT/2) :
+             return SoccerAction(shoot=((state.goal-state.player).normalize()*3))
+         else:
+             return SoccerAction(acceleration=state.ballameliorer-state.player)
+    elif state.player.y < (1/6)*GAME_HEIGHT : 
+        if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(shoot=Vector2D(state.player.x+20, 0)-state.player)
+        else :
+            return SoccerAction (acceleration=state.ballameliorer-state.player)
+    elif state.player.y > (5/6)*GAME_HEIGHT : 
+        if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(shoot=Vector2D(state.player.x+20, GAME_HEIGHT)-state.player)
+        else :
+            return SoccerAction (acceleration=state.ballameliorer-state.player)
+    else : 
+        return gobetter(state)
+        
+    
 
+  
 
 
 """
