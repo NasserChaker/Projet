@@ -89,7 +89,7 @@ class Defenseur(Strategy):
                             Vector2D.create_random(-0.5 ,0.5))
 """                
 def gobetter(state) : 
-     if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
+     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.goal-state.player)
      else :
         return SoccerAction (acceleration=state.ballameliorer-state.player)
@@ -103,7 +103,7 @@ def gonull(state) :
                 
 def gobetterdef (state):
     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-        return SoccerAction(shoot=state.coequipier-state.player)
+        return SoccerAction(shoot=state.goal-state.player)
     else :
         return SoccerAction (acceleration=state.ballameliorer-state.player)
 
@@ -142,26 +142,16 @@ def attaquant2(state):
     
     
 def one(state):
-    if state.oneatt : 
-         if (state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS) and (state.ball.x == GAME_WIDTH/2) and (state.balle.y == GAME_HEIGHT/2) :
-             return SoccerAction(shoot=((state.goal-state.player).normalize()*3))
-         else:
-             return SoccerAction(acceleration=state.ballameliorer-state.player)
-    elif state.player.y < (1/6)*GAME_HEIGHT : 
-        if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(shoot=Vector2D(state.player.x+20, 0)-state.player)
-        else :
-            return SoccerAction (acceleration=state.ballameliorer-state.player)
-    elif state.player.y > (5/6)*GAME_HEIGHT : 
-        if state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(shoot=Vector2D(state.player.x+20, GAME_HEIGHT)-state.player)
-        else :
-            return SoccerAction (acceleration=state.ballameliorer-state.player)
-    else : 
+    #cas ou l'adveraire bouge
+    if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
+    if (state.devant == True) : 
+        return SoccerAction(state.ballameliorer-state.player,(state.goal-state.player).normalize()*1)
+    else :
         return gobetter(state)
-        
     
-
+     #cas ou l'adveraire bouge pas
+     #petite frappe puis grosse frappe
   
 
 

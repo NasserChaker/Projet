@@ -73,6 +73,12 @@ class SuperState (object):
         else : 
             return (self.near.x > self.player.x)
     
+    @property 
+    def devant(self):
+        if(self.goal.distance(self.player) > self.goal.distance(self.near)):
+            return True 
+        else : 
+            return False
     
 
 
