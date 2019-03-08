@@ -94,12 +94,6 @@ def gobetter(state) :
      else :
         return SoccerAction (acceleration=state.ballameliorer-state.player)
     
-def gonull(state) : 
-     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-        return SoccerAction(shoot=state.goal-state.player)
-     else :
-        return SoccerAction (acceleration=state.ball-state.player)
-    
                 
 def gobetterdef (state):
     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
@@ -142,17 +136,22 @@ def attaquant2(state):
     
     
 def one(state):
-    #cas ou l'adveraire bouge
-    if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-        return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
-    if (state.devant == True) : 
-        return SoccerAction(state.ballameliorer-state.player,(state.goal-state.player).normalize()*1)
-    else :
-        return gobetter(state)
-    
-     #cas ou l'adveraire bouge pas
-     #petite frappe puis grosse frappe
-  
+    if state.bouge == True : 
+        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
+        if (state.devant == True) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS: 
+            return SoccerAction(state.ballameliorer-state.player,(state.goal-state.player).normalize()*3)
+        else :
+            return gobetter(state)
+    else : 
+        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(state.ballameliorer-state.player, (state.goal-state.player).normalize()*2)
+        else : 
+            return gobetter(state)
+            
+        
+def gardien(state) : 
+     return SoccerAction(0, state.goal-state.player)
 
 
 """
