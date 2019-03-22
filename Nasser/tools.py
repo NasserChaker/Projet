@@ -51,6 +51,13 @@ class SuperState (object):
         else : 
             (posdef, condition) = (3/4, self.ballameliorer.x < GAME_WIDTH*(2/3))
         return (posdef,condition)
+        
+    @property
+    def teammil(self):
+        if self.id_team == 1 :
+            return state.ball.x <= GAME_WIDTH*(1/2) 
+        else : 
+            return state.ball.x >= GAME_WIDTH*(1/2) 
     
     @property
     def teamatt(self):
@@ -63,7 +70,7 @@ class SuperState (object):
     @property
     def coequipier(self):   
         for (id_team, id_player) in self.state.players :
-            if (id_team == self.id_team) and (id_player != self.id_player) : 
+            if (id_team == self.id_team) and (id_player != self.id_player): 
                 return self.state.player_state(id_team, id_player).position
             
     @property 
@@ -79,14 +86,41 @@ class SuperState (object):
             return True 
         else : 
             return False
-        
+         
     @property 
     def bouge(self) : 
         if self.goal.distance(self.near)<20:
             return False 
         else : 
             return True
+        
+    @property
+    def coequipier2(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and ((id_player == 1) or (id_player == 2)): 
+                return self.state.player_state(id_team, id_player).position
     
+    @property
+    def coequipier0(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and ((id_player == 0): 
+                return self.state.player_state(id_team, id_player).position
+            
+    @property 
+    def distancemil(self):
+        if self.ball.distance(self.player) > self.ball.distance(self.coequipier2) :
+            return True 
+        else :
+            return False 
+            
+    @property
+    def devantmil(self):
+        if self.goal.distance(self.player) > self.goal.distance(self.coequipier2) :
+            return True
+        else:
+            return False
+            
+        
 
 
 class SimpleStrategy (Strategy):
