@@ -55,10 +55,10 @@ class SuperState (object):
     @property
     def teammil(self):
         if self.id_team == 1 :
-            return state.ball.x <= GAME_WIDTH*(1/2) 
+            return self.ball.x <= GAME_WIDTH*(1/2) 
         else : 
-            return state.ball.x >= GAME_WIDTH*(1/2) 
-    
+            return self.ball.x >= GAME_WIDTH*(1/2) 
+        
     @property
     def teamatt(self):
         if self.id_team == 1 :
@@ -67,6 +67,14 @@ class SuperState (object):
             (posattx,nextpos,defe) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(2/5),self.ballameliorer.x > GAME_WIDTH*(3/4))
         return (posattx,nextpos,defe)
     
+    @property
+    def v4v4(self):
+        if self.id_team == 1 :
+            (def3, def4, att3, att4) = (self.ball.y <= GAME_HEIGHT*(1/2), self.ball.y >= GAME_HEIGHT*(1/2), self.ball.y <= GAME_HEIGHT*(1/2), self.ball.y >= GAME_HEIGHT*(1/2))
+        else : 
+            (def3, def4, att3, att4) = (self.ball.y <= GAME_HEIGHT*(1/2), self.ball.y >= GAME_HEIGHT*(1/2), self.ball.y <= GAME_HEIGHT*(1/2), self.ball.y >= GAME_HEIGHT*(1/2))
+        return (def3, def4, att3, att4)
+        
     @property
     def coequipier(self):   
         for (id_team, id_player) in self.state.players :
@@ -93,6 +101,24 @@ class SuperState (object):
             return False 
         else : 
             return True
+    
+    @property
+    def coequipier0(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and (id_player == 0): 
+                return self.state.player_state(id_team, id_player).position
+            
+    @property
+    def coequipier1(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and (id_player == 1): 
+                return self.state.player_state(id_team, id_player).position
+        
+    @property
+    def coequipier22(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and (id_player == 2): 
+                return self.state.player_state(id_team, id_player).position
         
     @property
     def coequipier2(self):   
@@ -101,9 +127,15 @@ class SuperState (object):
                 return self.state.player_state(id_team, id_player).position
     
     @property
-    def coequipier0(self):   
+    def coequipier3(self):   
         for (id_team, id_player) in self.state.players :
-            if (id_team == self.id_team) and (id_player != self.id_player) and ((id_player == 0): 
+            if (id_team == self.id_team) and (id_player != self.id_player) and (id_player == 3): 
+                return self.state.player_state(id_team, id_player).position
+    
+    @property
+    def coequipieratt(self):   
+        for (id_team, id_player) in self.state.players :
+            if (id_team == self.id_team) and (id_player != self.id_player) and ((id_player == 2) or (id_player == 3)):
                 return self.state.player_state(id_team, id_player).position
             
     @property 
@@ -119,6 +151,14 @@ class SuperState (object):
             return True
         else:
             return False
+    
+    @property
+    def devantatt(self):
+        if self.goal.distance(self.player) < self.goal.distance(self.coequipieratt) :
+            return True
+        else:
+            return False
+    
             
         
 

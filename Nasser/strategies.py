@@ -23,14 +23,14 @@ def gobetter(state) :
      if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.goal-state.player)
      else :
-        return SoccerAction (acceleration=state.ballameliorer-state.player)
+        return SoccerAction(acceleration=state.ballameliorer-state.player)
     
                 
 def gobetterdef (state):
     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.goal-state.player)
     else :
-        return SoccerAction (acceleration=state.ballameliorer-state.player)
+        return SoccerAction(acceleration=state.ballameliorer-state.player)
 
     
 def defenseur2 (state):
@@ -91,24 +91,45 @@ def milieu1(state) :
         else :
            return gobetter(state) 
     else :
-        if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-            if state.devantmil == True :
-                return SoccerAction(state.ballameliorer-state.player,(state.coequipier2-state.player))
-            else :
-                if state.player.distance(state.goal) < 30 : 
-                    return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
-                else : 
-                    return SoccerAction(state.ballameliorer-state.player,state.coequipier0-state.player)
+        if state.devantmil == True :
+                if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+                    return SoccerAction(state.ballameliorer-state.player,(state.coequipier2-state.player))
+                else :
+                    if state.player.distance(state.goal) < 30 and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+                        return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
+                    else : 
+                        return SoccerAction(state.ballameliorer-state.player,state.coequipier3-state.player)
                 
 
-
-           
+def attaquant3(state):
+    if state.v4v4[2]:
+        if state.devantatt == False : 
+            return SoccerAction(state.ballameliorer-state.player, (state.coequipier3-state.player).normalize()*4)
+        else :
+            return attaquant2(state)
+    else : 
+        return SoccerAction(Vector2D(state.coequipier3.x, state.player.y)-state.player, state.goal-state.player)
  
+def defenseur3(state):
+    if state.v4v4[0]:
+        return defenseur2(state)
+    else :
+        return SoccerAction(Vector2D(state.coequipier1.x, state.coequipier22.y)-state.player, state.coequipier22-state.player)
     
-    
-
-    
-    
+def attaquant4(state):
+    if state.v4v4[3]:
+        if state.devantatt == False : 
+            return SoccerAction(state.ballameliorer-state.player, (state.coequipier22-state.player).normalize()*4)
+        else :
+            return attaquant2(state)
+    else :
+        return SoccerAction(Vector2D(state.coequipier22.x, state.player.y)-state.player, state.goal-state.player)
+        
+def defenseur4(state):
+    if state.v4v4[1]:
+        return defenseur2(state)
+    else : 
+        return SoccerAction(Vector2D(state.coequipier0.x,  state.coequipier3.y)-state.player, state.coequipier3-state.player)
     
     
     
