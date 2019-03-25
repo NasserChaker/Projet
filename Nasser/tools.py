@@ -66,6 +66,13 @@ class SuperState (object):
         else : 
             (posattx,nextpos,defe) = (self.player.x > GAME_WIDTH*(1/2), GAME_WIDTH*(2/5),self.ballameliorer.x > GAME_WIDTH*(3/4))
         return (posattx,nextpos,defe)
+    @property
+    def teamatt2(self):
+        if self.id_team == 1 :
+            (un,deux)=(self.ball.x >= GAME_WIDTH*(2/3), GAME_WIDTH*(2/3))
+        else : 
+            (un,deux)=(self.ball.x <= GAME_WIDTH*(1/3),GAME_WIDTH*(1/3))
+        return  (un,deux)
     
     @property
     def v4v4(self):
@@ -125,6 +132,8 @@ class SuperState (object):
         for (id_team, id_player) in self.state.players :
             if (id_team == self.id_team) and (id_player != self.id_player) and ((id_player == 1) or (id_player == 2)): 
                 return self.state.player_state(id_team, id_player).position
+            
+  
     
     @property
     def coequipier3(self):   
@@ -158,8 +167,22 @@ class SuperState (object):
             return True
         else:
             return False
+     
+    @property   
+    def milieuproche(self):
+        if self.player.distance(self.coequipier1) < self.player.distance(self.coequipier22):
+            return self.coequipier1
+        else:
+            return self.coequipier22
     
-            
+      
+    @property   
+    def milieuloin(self):
+        if self.player.distance(self.coequipier1) < self.player.distance(self.coequipier22):
+            return self.coequipier22
+        else:
+            return self.coequipier1
+           
         
 
 
