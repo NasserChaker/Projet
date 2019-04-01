@@ -58,7 +58,7 @@ def defenseur2 (state):
     else :
         return gobetter(state)
 
-def gobetteratt (state):
+def gobetteratt1 (state):
     if state.teamatt[0] :
         if state.player.y < GAME_HEIGHT/2 :
             if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
@@ -168,7 +168,7 @@ def defenseur5(state):
     
 def attaquant5(state):
     if state.teamatt2[0]:
-        return gobetteratt(state)
+        return gobetteratt1(state)
     else:
         return SoccerAction(acceleration = Vector2D(state.teamatt2[1],(state.milieuloin).y)-state.player)
     
