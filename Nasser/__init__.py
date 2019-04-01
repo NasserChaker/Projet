@@ -10,8 +10,8 @@ def get_team (nb_players):
         team.add("Attaquant",SimpleStrategy(attaquant2,'Att'))
         team.add("Défenseur",SimpleStrategy(defenseur2,'Def'))
     if (nb_players == 4): 
-        team.add("d5",SimpleStrategy(defenseur5,'Def5'))
-        team.add("m1",SimpleStrategy(milieu1,'m1'))
-        team.add("m2",SimpleStrategy(milieu2,'m2'))
-        team.add("a5",SimpleStrategy(attaquant5,'Att5'))
+        team.add("Nasser0",SimpleStrategy(defenseur5,'Def5'))
+        team.add("Nasser1",SimpleStrategy(milieu1,'m1'))
+        team.add("Nasser2",SimpleStrategy(milieu2,'m2'))
+        team.add("Nasser3",SimpleStrategy(attaquant5,'Att5'))
     return team

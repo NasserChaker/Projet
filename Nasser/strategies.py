@@ -18,7 +18,11 @@ class RandomStrategy(Strategy):
         # id_player starts at 0
         return SoccerAction(Vector2D.create_random(-0.5 ,0.5),
                             Vector2D.create_random(-0.5 ,0.5))
-                    
+ 
+
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |GOBETTER GLOBAUX|                                                                                        |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|                    
 def gobetter(state) : 
      if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=state.goal-state.player)
@@ -27,6 +31,8 @@ def gobetter(state) :
     
 
                     
+<<<<<<< HEAD
+=======
 def gobetteratt(state) : 
      if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=(state.coequipier2-state.player).normalize()*4)
@@ -58,6 +64,7 @@ def defenseur2 (state):
     else :
         return gobetter(state)
 
+>>>>>>> c6a2c5f4e6454285ef5e85476cc11b35c9f6c249
 def gobetteratt1 (state):
     if state.teamatt[0] :
         if state.player.y < GAME_HEIGHT/2 :
@@ -77,67 +84,38 @@ def gobetteratt1 (state):
             return SoccerAction (acceleration=state.ballameliorer-state.player)
         
         
-        
-def attaquant2(state):
-    if state.teamatt[2] : 
-        return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
-    else :
-        return gobetteratt(state) 
     
-def attaquant3(state):
-    if state.v4v4[2]:
-        if state.devantatt == False : 
-            return SoccerAction(state.ballameliorer-state.player, (state.coequipier3-state.player).normalize()*4)
-        else :
-            return attaquant2(state)
-    else : 
-        return SoccerAction(Vector2D(state.coequipier3.x, state.player.y)-state.player, state.goal-state.player)
- 
-def defenseur3(state):
-    if state.v4v4[0]:
-        return defenseur2(state)
-    else :
-        return SoccerAction(Vector2D(state.coequipier1.x, state.coequipier22.y)-state.player, state.coequipier22-state.player)
-    
-def attaquant4(state):
-    if state.v4v4[3]:
-        if state.devantatt == False : 
-            return SoccerAction(state.ballameliorer-state.player, (state.coequipier22-state.player).normalize()*4)
-        else :
-            return attaquant2(state)
-    else :
-        return SoccerAction(Vector2D(state.coequipier22.x, state.player.y)-state.player, state.goal-state.player)
-        
-def defenseur4(state):
-    if state.v4v4[1]:
-        return defenseur2(state)
-    else : 
-        return SoccerAction(Vector2D(state.coequipier0.x,  state.coequipier3.y)-state.player, state.coequipier3-state.player)
-    
-    
-    
-    
-    
-    
-    
-def one(state):
-    if state.bouge == True : 
-        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
-        if (state.devant == True) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS: 
-            return SoccerAction(state.ballameliorer-state.player,(state.goal-state.player).normalize()*3)
-        else :
-            return gobetter(state)
-    else : 
-        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
-            return SoccerAction(state.ballameliorer-state.player, (state.goal-state.player).normalize()*2)
-        else : 
-            return gobetter(state)
-            
-        
-def gardien(state) : 
-     return SoccerAction(0, state.goal-state.player)
 
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              | GOBETTER 4 VS 4|                                                                                        |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|                     
+def gobetterdef (state):
+    if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=state.milieuproche-state.player)
+    else :
+        return SoccerAction(acceleration=state.ballameliorer-state.player)
+    
+def gobetterdef1 (state):
+    if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=(state.coequipier2-state.player).normalize()*4)
+    else :
+        return SoccerAction(acceleration=state.ballameliorer-state.player)    
+
+def gobetterdef2 (state):
+    if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=(state.coequipier3-state.player).normalize()*4)
+    else :
+        return SoccerAction(acceleration=state.ballameliorer-state.player)  
+
+def gobetteratt(state) : 
+     if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+        return SoccerAction(shoot=(state.goal-state.player).normalize()*4)
+     else :
+        return SoccerAction(acceleration=state.ballameliorer-state.player)   
+
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |4 VS 4|                                                                                                  |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------| 
 def milieu1(state) :
     if state.ball.x >= GAME_WIDTH*1/3  and state.ball.x <= GAME_WIDTH * 2/3 and state.ball.y >= GAME_HEIGHT * 1/2 :
         if state.devantmil == True :
@@ -163,24 +141,63 @@ def defenseur5(state):
     else :
         return gobetterdef(state)
     
-    
-    
-    
 def attaquant5(state):
     if state.teamatt2[0]:
         return gobetteratt1(state)
     else:
         return SoccerAction(acceleration = Vector2D(state.teamatt2[1],(state.milieuloin).y)-state.player)
     
+
+
     
-"""    
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |1 VS 1|                                                                                                  |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+
+def one(state):
+    if state.bouge == True : 
+        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<1+PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
+        if (state.devant == True) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS: 
+            return SoccerAction(state.ballameliorer-state.player,(state.goal-state.player).normalize()*3)
+        else :
+            return gobetter(state)
+    else : 
+        if (state.ball.x == GAME_WIDTH/2) and (state.ball.y == GAME_HEIGHT/2) and state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(state.ballameliorer-state.player, (state.goal-state.player).normalize()*2)
+        else : 
+            return gobetter(state)                    
+
+
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |2 VS 2|                                                                                                  |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+            
+def defenseur2 (state):
+    if state.teamdef[1] : 
+        return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
+    else :
+        return gobetter(state)        
+       
+def attaquant2(state):
+    if state.teamatt[2] : 
+        return SoccerAction(Vector2D(GAME_WIDTH*(state.teamdef[0]), (state.ballameliorer.y+state.goal.y)/2 )-state.player, state.goal-state.player)
+    else :
+        return gobetteratt1(state) 
+ 
+
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |STRATEGIES TEST|                                                                                         |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------| 
+
+
 def milieu546546(state) :
    if state.teammil:
         if state.distancemil == True :
             return SoccerAction(Vector2D(GAME_WIDTH*(1/3), state.coequipier2.y)-state.player, state.goal-state.player)
         else :
            return gobetter(state) 
-    else :
+   else :
         if state.devantmil == True :
                 if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
                     return SoccerAction(state.ballameliorer-state.player,(state.coequipier2-state.player))
@@ -189,9 +206,50 @@ def milieu546546(state) :
                         return SoccerAction(state.ballameliorer-state.player, state.goal-state.player)
                     else : 
                         return SoccerAction(state.ballameliorer-state.player,state.coequipier3-state.player)
-"""                      
+                     
+    
+        
+def attaquant3(state):
+    if state.v4v4[2]:
+        if state.devantatt == False : 
+            return SoccerAction(state.ballameliorer-state.player, (state.coequipier3-state.player).normalize()*4)
+        else :
+            return attaquant2(state)
+    else : 
+        return SoccerAction(Vector2D(state.coequipier3.x, state.player.y)-state.player, state.goal-state.player)
+    
+
+def defenseur3(state):
+    if state.v4v4[0]:
+        return defenseur2(state)
+    else :
+        return SoccerAction(Vector2D(state.coequipier1.x, state.coequipier22.y)-state.player, state.coequipier22-state.player)
+    
+def attaquant4(state):
+    if state.v4v4[3]:
+        if state.devantatt == False : 
+            return SoccerAction(state.ballameliorer-state.player, (state.coequipier22-state.player).normalize()*4)
+        else :
+            return attaquant2(state)
+    else :
+        return SoccerAction(Vector2D(state.coequipier22.x, state.player.y)-state.player, state.goal-state.player)
+      
+    
+def defenseur4(state):
+    if state.v4v4[1]:
+        return defenseur2(state)
+    else : 
+        return SoccerAction(Vector2D(state.coequipier0.x,  state.coequipier3.y)-state.player, state.coequipier3-state.player)
     
     
+def gardien(state) : 
+     return SoccerAction(0, state.goal-state.player)    
     
+<<<<<<< HEAD
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
+#|                                              |GOBETTER NON UTILISE|                                                                                    |   
+#|--------------------------------------------------------------------------------------------------------------------------------------------------------|   
     
+=======
     
+>>>>>>> c6a2c5f4e6454285ef5e85476cc11b35c9f6c249
