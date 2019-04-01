@@ -31,8 +31,7 @@ def gobetter(state) :
     
 
                     
-<<<<<<< HEAD
-=======
+
 def gobetteratt(state) : 
      if state.player.distance(state.ball)<PLAYER_RADIUS + BALL_RADIUS :
         return SoccerAction(shoot=(state.coequipier2-state.player).normalize()*4)
@@ -64,7 +63,7 @@ def defenseur2 (state):
     else :
         return gobetter(state)
 
->>>>>>> c6a2c5f4e6454285ef5e85476cc11b35c9f6c249
+
 def gobetteratt1 (state):
     if state.teamatt[0] :
         if state.player.y < GAME_HEIGHT/2 :
@@ -143,7 +142,7 @@ def defenseur5(state):
     
 def attaquant5(state):
     if state.teamatt2[0]:
-        return gobetteratt1(state)
+        return gobetteratt(state)
     else:
         return SoccerAction(acceleration = Vector2D(state.teamatt2[1],(state.milieuloin).y)-state.player)
     
@@ -245,11 +244,8 @@ def defenseur4(state):
 def gardien(state) : 
      return SoccerAction(0, state.goal-state.player)    
     
-<<<<<<< HEAD
+
 #|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
 #|                                              |GOBETTER NON UTILISE|                                                                                    |   
 #|--------------------------------------------------------------------------------------------------------------------------------------------------------|   
-    
-=======
-    
->>>>>>> c6a2c5f4e6454285ef5e85476cc11b35c9f6c249
+
