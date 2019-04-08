@@ -9,6 +9,7 @@ from soccersimulator import Ball,settings, Strategy, SoccerAction, Vector2D, Soc
 from .tools  import SimpleStrategy,SuperState
 from soccersimulator.settings  import GAME_WIDTH, GAME_HEIGHT,PLAYER_RADIUS,BALL_RADIUS,maxPlayerShoot
 
+
 class RandomStrategy(Strategy):
     def __init__(self):
         Strategy.__init__(self, "Random")
@@ -248,4 +249,3 @@ def gardien(state) :
 #|--------------------------------------------------------------------------------------------------------------------------------------------------------|        
 #|                                              |GOBETTER NON UTILISE|                                                                                    |   
 #|--------------------------------------------------------------------------------------------------------------------------------------------------------|   
-
