@@ -39,8 +39,11 @@ class Attaque(Strategy):
                 tir = Vector2D(GAME_WIDTH*(2/4), 0)
             if opp.x >= GAME_WIDTH*(1/4) and opp.y >= GAME_HEIGHT*(1/2) :
                 tir = Vector2D(0,0)
-        return SoccerAction(acceleration=ballam-player,
-                            shoot=tir-player)
+        if player.distance(ball)<PLAYER_RADIUS + BALL_RADIUS :
+            return SoccerAction(shoot=tir-player)
+        else :
+            return SoccerAction(acceleration = ballam-player)
+            
         
         
 class Defense(Strategy):
@@ -55,8 +58,13 @@ class Defense(Strategy):
             coequipier = state.player_state(1,0).position
             opp = state.player_state(2,0).position
             if ball.x < GAME_WIDTH*(1/2) :
-                return SoccerAction(acceleration=ballam-player,
-                            shoot=opp-player)
+                if player.x < coequipier.x :
+                    return SoccerAction(acceleration=ballam-player,
+                            shoot=(coequipier-player).normalize()*3)
+                else: 
+                    return SoccerAction(acceleration=ballam-player,
+                            shoot=Vector2D(GAME_WIDTH, GAME_HEIGHT/2)-player)
+                    
             else : 
                 if coequipier.x < GAME_WIDTH*(1/4) and coequipier.y < GAME_HEIGHT*(1/2) :
                     deplacement = Vector2D(GAME_WIDTH*(2/4), GAME_HEIGHT)
@@ -72,8 +80,12 @@ class Defense(Strategy):
             coequipier = state.player_state(2,0).position
             opp = state.player_state(1,0).position
             if ball.x > GAME_WIDTH*(1/2) :
-                return SoccerAction(acceleration=ballam-player,
-                            shoot=opp-player)
+                if player.x > coequipier.x :
+                    return SoccerAction(acceleration=ballam-player,
+                            shoot=(coequipier-player).normalize()*3)
+                else: 
+                    return SoccerAction(acceleration=ballam-player,
+                            shoot=Vector2D(0, GAME_HEIGHT/2)-player)
             else :
                 if coequipier.x < GAME_WIDTH*(3/4) and coequipier.y < GAME_HEIGHT*(1/2) :
                     deplacement = Vector2D(GAME_WIDTH, GAME_HEIGHT)

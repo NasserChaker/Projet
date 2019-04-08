@@ -16,4 +16,5 @@ J'ai rajouté ballam qui permet d'anticiper la trajectoire de la balle. Le joueu
 
 Question 5 : 
 
+J'ai rajouter un if qui va permettre à l'attaquant de tirer plus vite (" if player.distance(ball)<PLAYER_RADIUS + BALL_RADIUS :"). De plus, si le defenseur et derriere son attaquant, plutot que de dégager betement la balle, il va preferer lui faire une passe qui ne sera pas puissante afin que l'attaquant puisse ensuite la degager intelligement et plus rapidement.
 
