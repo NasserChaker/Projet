@@ -4,4 +4,16 @@ J'ai creer une varaible opp qui va permettre de viser l'opposant lors du shoot  
 
 Question 2 : 
 
-J'ai diviser le terrain en 8 et j'ai demander au possesseur de la balle d'envoyer le balle dans le quart du demi-terrain opposé au recepteur de la balle 
+J'ai diviser le terrain en 8 et j'ai demander au possesseur de la balle d'envoyer le balle dans le quart du demi-terrain, opposé au recepteur de la balle 
+
+Question 3 : 
+
+Afin de défendre contre cela, le defenseur va se replacer a l'opposer de son coequipier lorsque la balle est dans le camps adverse. 
+
+Question 4 : 
+
+J'ai rajouté ballam qui permet d'anticiper la trajectoire de la balle. Le joueur va degager la balle à l'opposé de son adversaire (selon les zones du terrains) et se replacer au milieu de son demi-terrain afin de recuperer le ballon plus facilement quand il reviendra dans sa moitié de terrain. 
+
+Question 5 : 
+
+

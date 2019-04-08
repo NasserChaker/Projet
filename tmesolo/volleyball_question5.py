@@ -18,6 +18,7 @@ class Attaque(Strategy):
     def compute_strategy(self, state, id_team, id_player):
         ball = state.ball.position
         player = state.player_state(id_team,id_player).position
+        ballam = state.ball.position + 5 * state.ball.vitesse
         if id_team == 1 :
             opp = state.player_state(2,id_player).position
             if opp.x < GAME_WIDTH*(3/4) and opp.y < GAME_HEIGHT*(1/2) :
@@ -38,7 +39,7 @@ class Attaque(Strategy):
                 tir = Vector2D(GAME_WIDTH*(2/4), 0)
             if opp.x >= GAME_WIDTH*(1/4) and opp.y >= GAME_HEIGHT*(1/2) :
                 tir = Vector2D(0,0)
-        return SoccerAction(acceleration=ball-player,
+        return SoccerAction(acceleration=ballam-player,
                             shoot=tir-player)
         
         
@@ -49,11 +50,12 @@ class Defense(Strategy):
     def compute_strategy(self, state, id_team, id_player):
         ball = state.ball.position
         player = state.player_state(id_team,id_player).position
+        ballam = state.ball.position + 5 * state.ball.vitesse
         if id_team == 1 :
             coequipier = state.player_state(1,0).position
             opp = state.player_state(2,0).position
             if ball.x < GAME_WIDTH*(1/2) :
-                return SoccerAction(acceleration=ball-player,
+                return SoccerAction(acceleration=ballam-player,
                             shoot=opp-player)
             else : 
                 if coequipier.x < GAME_WIDTH*(1/4) and coequipier.y < GAME_HEIGHT*(1/2) :
@@ -70,7 +72,7 @@ class Defense(Strategy):
             coequipier = state.player_state(2,0).position
             opp = state.player_state(1,0).position
             if ball.x > GAME_WIDTH*(1/2) :
-                return SoccerAction(acceleration=ball-player,
+                return SoccerAction(acceleration=ballam-player,
                             shoot=opp-player)
             else :
                 if coequipier.x < GAME_WIDTH*(3/4) and coequipier.y < GAME_HEIGHT*(1/2) :
