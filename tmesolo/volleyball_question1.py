@@ -1,6 +1,5 @@
 from soccersimulator import Strategy, SoccerAction, Vector2D, SoccerTeam
 from soccersimulator import VolleySimulation, volley_show_simu
-from Nasser.tools  import SimpleStrategy,SuperState
 
 
 class RandomStrategy(Strategy):

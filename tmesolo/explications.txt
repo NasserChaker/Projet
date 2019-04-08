@@ -1,0 +1,7 @@
+Question 1 : 
+
+J'ai creer une varaible opp qui va permettre de viser l'opposant lors du shoot  du possesseur du ballon
+
+Question 2 : 
+
+J'ai diviser le terrain en 8 et j'ai demander au possesseur de la balle d'envoyer le balle dans le quart du demi-terrain opposé au recepteur de la balle 
